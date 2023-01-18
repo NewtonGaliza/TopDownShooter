@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     private float initialSpeed;
     [SerializeField] private float runSpeed;
 
+    // [SerializeField] private Transform weapon;
+    private Camera mainCamera;
+
 
     private Vector2 _direction;
     public Vector2 direction
@@ -25,7 +28,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        initialSpeed = speed;        
+        initialSpeed = speed;  
+
+        mainCamera  = Camera.main;      
     }
 
 
@@ -35,6 +40,8 @@ public class Player : MonoBehaviour
         OnInput();
 
         OnRun();
+
+        LookAtMouse();
     }
 
 
@@ -49,6 +56,12 @@ public class Player : MonoBehaviour
     void OnInput()
     {
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+
+        Vector2 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+
+
+
     }
 
     void OnMove()
@@ -69,8 +82,15 @@ public class Player : MonoBehaviour
         }
     }
 
-
-
+    void LookAtMouse()
+    {
+        Vector3 mouse = Input.mousePosition;
+        //Debug.Log(Input.mousePosition);
+        Vector3 screenPoint = Camera.main.WorldToScreenPoint(transform.localPosition);
+        Vector2 offset = new Vector2(mouse.x - screenPoint.x, mouse.y - screenPoint.y);
+        float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f,0f,angle);
+    }
 
 
 }

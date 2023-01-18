@@ -7,6 +7,7 @@ public class PlayerAnim : MonoBehaviour
     private Player player;
     private Animator animator;
 
+
     // Start is called before the first frame update
     void Start()
     {
