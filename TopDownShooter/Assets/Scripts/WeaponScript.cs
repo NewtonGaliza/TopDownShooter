@@ -10,10 +10,13 @@ public class WeaponScript : MonoBehaviour
 
     private float fireTimer;
 
+    private Animator playerAnimator;
+    private bool isShooting;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerAnimator = GetComponentInParent<Animator>();
     }
 
     // Update is called once per frame
@@ -41,5 +44,4 @@ public class WeaponScript : MonoBehaviour
     {
         return Time.time > fireTimer;
     }
-
 }

@@ -21,6 +21,13 @@ public class Player : MonoBehaviour
     }
 
 
+    private bool _isShooting;
+    public bool isShooting
+    {
+        get { return _isShooting; }
+        set {_isShooting = value; }
+    }
+
 
 
 
@@ -42,6 +49,8 @@ public class Player : MonoBehaviour
         OnRun();
 
         LookAtMouse();
+
+        OnShooting();
     }
 
 
@@ -56,12 +65,6 @@ public class Player : MonoBehaviour
     void OnInput()
     {
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-
-        Vector2 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-
-
-
     }
 
     void OnMove()
@@ -93,4 +96,19 @@ public class Player : MonoBehaviour
     }
 
 
+    void OnShooting()
+    {
+        //pressionar botao esquerdo do mouse
+        if(Input.GetMouseButtonDown(0))
+        {
+            _isShooting = true;
+        }
+
+        if(Input.GetMouseButtonUp(0))
+        {
+            _isShooting = false;
+        }
+    }
+    
+    
 }
